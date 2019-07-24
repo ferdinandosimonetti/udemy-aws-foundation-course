@@ -45,7 +45,10 @@ module "eu-central-1-vm" {
 
 # AMI from instance
 module "eu-central-1-ami" {
-  source "./modules/amis"
-  name = "${var.udemy-ami-name}"
-  sourceinstance = "${module.eu-central-1-vm.udemy-instance_id}"
+  source = "./modules/amis"
+  aminame = "${var.udemy-ami-name}"
+  sourceinstanceid = "${module.eu-central-1-vm.udemy-instance_id}"
+  providers = {
+    aws = "aws.eu-central-1"
+  }  
 }
