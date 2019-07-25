@@ -51,3 +51,16 @@ module "eu-central-1-ami" {
     aws = "aws.eu-central-1"
   }  
 }
+# second instance in eu-central-1, this time from custom AMI
+# instance in eu-central-1
+module "eu-central-1-vm2" {
+  source = "./modules/instances"
+  name = "${var.udemy-instance2-central-name}"
+  keypair = "${var.udemy-keypair-name}"
+  secgroup = "${var.udemy-sg-name}"
+  userdata = "${var.udemy-userdata-content}"
+  sourceami = "${module.eu-central-1-ami.udemy-ami_id}"
+  providers = {
+    aws = "aws.eu-central-1"
+  }
+}
