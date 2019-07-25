@@ -1,9 +1,7 @@
-# create security group
-variable "name" {}
-
+# create security group for a web server
 resource "aws_security_group" "udemy-secgroup" {
   name        = "${var.name}"
-  description = "SSH and HTTP"
+  description = "SSH and HTTP(S)"
 
   ingress {
     from_port   = 22
@@ -17,6 +15,15 @@ resource "aws_security_group" "udemy-secgroup" {
   ingress {
     from_port   = 80
     to_port     = 80
+    protocol    = "tcp"
+    # Please restrict your ingress to only necessary IPs and ports.
+    # Opening to 0.0.0.0/0 can lead to security vulnerabilities.
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  ingress {
+    from_port   = 443
+    to_port     = 443
     protocol    = "tcp"
     # Please restrict your ingress to only necessary IPs and ports.
     # Opening to 0.0.0.0/0 can lead to security vulnerabilities.
