@@ -1,0 +1,8 @@
+udemy-instance1-central-name = "udemy-webserver1"
+udemy-instance2-central-name = "udemy-webserver1b"
+udemy-instance1-west-name = "udemy-webserver2"
+udemy-keypair-name = "aws-foundation-private-key"
+udemy-sg-name = "udemy-webserver"
+udemy-ami-name = "udemy-webserver-ami" 
+udemy-pubkey-content = "${file("c:\\users\\ferdi\\.ssh\\id_rsa.pub")}"
+udemy-userdata-content = "${file(".\\files\\apache.sh")}"
