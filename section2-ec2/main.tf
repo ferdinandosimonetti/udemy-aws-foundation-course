@@ -1,18 +1,19 @@
 # security groups
 module "eu-central-1-sg" {
-  source = "./modules/secgroups"
+  source = "./modules/secgroups-web"
   name   = "${var.udemy-sg-name}"
   providers = {
     aws = "aws.eu-central-1"
   }
 }
 module "eu-west-1-sg" {
-  source = "./modules/secgroups"
+  source = "./modules/secgroups-web"
   name   = "${var.udemy-sg-name}"
   providers = {
     aws = "aws.eu-west-1"
   }
 }
+
 # keypairs
 module "eu-central-1-kp" {
   source = "./modules/keypairs"
@@ -30,6 +31,7 @@ module "eu-west-1-kp" {
     aws = "aws.eu-west-1"
   }
 }
+
 # instance in eu-central-1
 module "eu-central-1-vm" {
   source = "./modules/instances"
@@ -42,6 +44,7 @@ module "eu-central-1-vm" {
     aws = "aws.eu-central-1"
   }
 }
+
 # AMI from instance
 module "eu-central-1-ami" {
   source = "./modules/amis"
@@ -51,8 +54,8 @@ module "eu-central-1-ami" {
     aws = "aws.eu-central-1"
   }  
 }
+
 # second instance in eu-central-1, this time from custom AMI
-# instance in eu-central-1
 module "eu-central-1-vm2" {
   source = "./modules/instances"
   name = "${var.udemy-instance2-central-name}"

@@ -1,9 +1,3 @@
-variable "name" {}
-variable "keypair" {}
-variable "secgroup" {}
-variable "userdata" {}
-variable "sourceami" {}
-
 resource "aws_instance" "udemy-instance" {
 	ami = "${var.sourceami}"
 	instance_type = "t2.micro"
