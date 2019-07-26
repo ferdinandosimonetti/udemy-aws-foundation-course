@@ -61,7 +61,6 @@ module "eu-central-1-vm2" {
   name = "${var.udemy-instance2-central-name}"
   keypair = "${var.udemy-keypair-name}"
   secgroup = "${var.udemy-sg-name}"
-  userdata = "${file(var.udemy-userdata-path)}"
   sourceami = "${module.eu-central-1-ami.udemy-ami_id}"
   providers = {
     aws = "aws.eu-central-1"
@@ -85,7 +84,6 @@ module "eu-west-1-vm" {
   name = "${var.udemy-instance1-west-name}"
   keypair = "${var.udemy-keypair-name}"
   secgroup = "${var.udemy-sg-name}"
-  userdata = "${file(var.udemy-userdata-path)}"
   sourceami = "${module.eu-west-1-ami.udemy-amiwest_id}"
   providers = {
     aws = "aws.eu-west-1"
