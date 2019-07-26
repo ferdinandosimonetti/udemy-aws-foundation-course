@@ -34,7 +34,7 @@ module "eu-west-1-kp" {
 
 # instance in eu-central-1
 module "eu-central-1-vm" {
-  source = "./modules/instances"
+  source = "./modules/instances-userdata"
   name = "${var.udemy-instance1-central-name}"
   keypair = "${var.udemy-keypair-name}"
   secgroup = "${var.udemy-sg-name}"
@@ -87,5 +87,14 @@ module "eu-west-1-vm" {
   sourceami = "${module.eu-west-1-ami.udemy-amiwest_id}"
   providers = {
     aws = "aws.eu-west-1"
+  }
+}
+
+# empty security group
+module "eu-central-1-empty-sg" {
+  source = "./modules/secgroups"
+  name   = "${var.udemy-sg-empty-name}"
+  providers = {
+    aws = "aws.eu-central-1"
   }
 }

@@ -25,6 +25,10 @@ variable "udemy-sg-name" {
     description = "Name of the generated Security Group"
     type = "string"
 }
+variable "udemy-sg-empty-name" {
+    description = "Name of the empty SG"
+    type = "string"
+}
 variable "udemy-ami-name" {
     description = "Name of the generated AMI" 
     type = "string"
