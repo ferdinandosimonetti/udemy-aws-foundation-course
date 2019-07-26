@@ -67,3 +67,27 @@ module "eu-central-1-vm2" {
     aws = "aws.eu-central-1"
   }
 }
+
+# AMI on west, from custom AMI
+module "eu-west-1-ami" {
+  source = "./modules/amicopy"
+  aminame = "${var.udemy-ami-name}"
+  sourceami-id = "${module.eu-central-1-ami.udemy-ami_id}"
+  sourceami-region = "${var.region}"
+  providers = {
+    aws = "aws.eu-west-1"
+  }  
+}
+
+# first instance in eu-west-1, from copied AMI
+module "eu-west-1-vm" {
+  source = "./modules/instances"
+  name = "${var.udemy-instance1-west-name}"
+  keypair = "${var.udemy-keypair-name}"
+  secgroup = "${var.udemy-sg-name}"
+  userdata = "${file(var.udemy-userdata-path)}"
+  sourceami = "${module.eu-west-1-ami.udemy-amiwest_id}"
+  providers = {
+    aws = "aws.eu-west-1"
+  }
+}

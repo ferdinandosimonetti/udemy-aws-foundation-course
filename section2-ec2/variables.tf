@@ -37,3 +37,8 @@ variable "udemy-userdata-path" {
     description = "Path of the customization script"
     type = "string"
 }
+variable "region" {
+    description = "AWS region"
+    type = "string"
+    default = "eu-central-1"
+}
