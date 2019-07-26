@@ -1,14 +1,126 @@
 # security groups
-module "eu-central-1-sg" {
-  source = "./modules/secgroups-web"
+module "eu-central-1-sg-webserver" {
+  source = "./modules/secgroups"
   name   = "${var.udemy-sg-name}"
   providers = {
     aws = "aws.eu-central-1"
   }
 }
-module "eu-west-1-sg" {
-  source = "./modules/secgroups-web"
+module "eu-west-1-sg-webserver" {
+  source = "./modules/secgroups"
   name   = "${var.udemy-sg-name}"
+  providers = {
+    aws = "aws.eu-west-1"
+  }
+}
+
+# security group rules - eu-central-1
+# add egress 'allow-all' rule to SG
+module "eu-central-1-sg-rule-egress" {
+  source = "./modules/secgrouprules"
+  description = "Egress allow all"
+  type = "egress"
+  fromport = 0
+  toport = 0
+  protocol = -1
+  cidr = [ "0.0.0.0/0" ]
+  secgroupid = "${module.eu-central-1-sg-webserver.udemy-secgroup_id}"
+  providers = {
+    aws = "aws.eu-central-1"
+  }
+}
+# add ingress rules to SG
+module "eu-central-1-sg-rule-ingress-ssh" {
+  source = "./modules/secgrouprules"
+  description = "Ingress SSH"
+  type = "ingress"
+  fromport = 22
+  toport = 22
+  protocol = "tcp"
+  cidr = [ "0.0.0.0/0" ]
+  secgroupid = "${module.eu-central-1-sg-webserver.udemy-secgroup_id}"
+  providers = {
+    aws = "aws.eu-central-1"
+  }
+}
+module "eu-central-1-sg-rule-ingress-http" {
+  source = "./modules/secgrouprules"
+  description = "Ingress HTTP"
+  type = "ingress"
+  fromport = 80
+  toport = 80
+  protocol = "tcp"
+  cidr = [ "0.0.0.0/0" ]
+  secgroupid = "${module.eu-central-1-sg-webserver.udemy-secgroup_id}"
+  providers = {
+    aws = "aws.eu-central-1"
+  }
+}
+module "eu-central-1-sg-rule-ingress-https" {
+  source = "./modules/secgrouprules"
+  description = "Ingress HTTPS"
+  type = "ingress"
+  fromport = 443
+  toport = 443
+  protocol = "tcp"
+  cidr = [ "0.0.0.0/0" ]
+  secgroupid = "${module.eu-central-1-sg-webserver.udemy-secgroup_id}"
+  providers = {
+    aws = "aws.eu-central-1"
+  }
+}
+
+# security group rules - eu-west-1
+# add egress 'allow-all' rule to SG
+module "eu-west-1-sg-rule-egress" {
+  source = "./modules/secgrouprules"
+  description = "Egress allow all"
+  type = "egress"
+  fromport = 0
+  toport = 0
+  protocol = -1
+  cidr = [ "0.0.0.0/0" ]
+  secgroupid = "${module.eu-west-1-sg-webserver.udemy-secgroup_id}"
+  providers = {
+    aws = "aws.eu-west-1"
+  }
+}
+# add ingress rules to SG
+module "eu-west-1-sg-rule-ingress-ssh" {
+  source = "./modules/secgrouprules"
+  description = "Ingress SSH"
+  type = "ingress"
+  fromport = 22
+  toport = 22
+  protocol = "tcp"
+  cidr = [ "0.0.0.0/0" ]
+  secgroupid = "${module.eu-west-1-sg-webserver.udemy-secgroup_id}"
+  providers = {
+    aws = "aws.eu-west-1"
+  }
+}
+module "eu-west-1-sg-rule-ingress-http" {
+  source = "./modules/secgrouprules"
+  description = "Ingress HTTP"
+  type = "ingress"
+  fromport = 80
+  toport = 80
+  protocol = "tcp"
+  cidr = [ "0.0.0.0/0" ]
+  secgroupid = "${module.eu-west-1-sg-webserver.udemy-secgroup_id}"
+  providers = {
+    aws = "aws.eu-west-1"
+  }
+}
+module "eu-west-1-sg-rule-ingress-https" {
+  source = "./modules/secgrouprules"
+  description = "Ingress HTTPS"
+  type = "ingress"
+  fromport = 443
+  toport = 443
+  protocol = "tcp"
+  cidr = [ "0.0.0.0/0" ]
+  secgroupid = "${module.eu-west-1-sg-webserver.udemy-secgroup_id}"
   providers = {
     aws = "aws.eu-west-1"
   }
@@ -87,69 +199,5 @@ module "eu-west-1-vm" {
   sourceami = "${module.eu-west-1-ami.udemy-amiwest_id}"
   providers = {
     aws = "aws.eu-west-1"
-  }
-}
-
-# empty security group
-module "eu-central-1-empty-sg" {
-  source = "./modules/secgroups"
-  name   = "${var.udemy-sg-empty-name}"
-  providers = {
-    aws = "aws.eu-central-1"
-  }
-}
-
-# add egress 'allow-all' rule to SG
-module "eu-central-1-sg-rule-egress" {
-  source = "./modules/secgrouprules"
-  description = "Egress allow all"
-  type = "egress"
-  fromport = 0
-  toport = 0
-  protocol = -1
-  cidr = [ "0.0.0.0/0" ]
-  secgroupid = "${module.eu-central-1-empty-sg.udemy-secgroup_id}"
-  providers = {
-    aws = "aws.eu-central-1"
-  }
-}
-# add ingress rules to SG
-module "eu-central-1-sg-rule-ingress-ssh" {
-  source = "./modules/secgrouprules"
-  description = "Ingress SSH"
-  type = "ingress"
-  fromport = 22
-  toport = 22
-  protocol = "tcp"
-  cidr = [ "0.0.0.0/0" ]
-  secgroupid = "${module.eu-central-1-empty-sg.udemy-secgroup_id}"
-  providers = {
-    aws = "aws.eu-central-1"
-  }
-}
-module "eu-central-1-sg-rule-ingress-http" {
-  source = "./modules/secgrouprules"
-  description = "Ingress HTTP"
-  type = "ingress"
-  fromport = 80
-  toport = 80
-  protocol = "tcp"
-  cidr = [ "0.0.0.0/0" ]
-  secgroupid = "${module.eu-central-1-empty-sg.udemy-secgroup_id}"
-  providers = {
-    aws = "aws.eu-central-1"
-  }
-}
-module "eu-central-1-sg-rule-ingress-https" {
-  source = "./modules/secgrouprules"
-  description = "Ingress HTTPS"
-  type = "ingress"
-  fromport = 443
-  toport = 443
-  protocol = "tcp"
-  cidr = [ "0.0.0.0/0" ]
-  secgroupid = "${module.eu-central-1-empty-sg.udemy-secgroup_id}"
-  providers = {
-    aws = "aws.eu-central-1"
   }
 }
