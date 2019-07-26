@@ -29,11 +29,11 @@ variable "udemy-ami-name" {
     description = "Name of the generated AMI" 
     type = "string"
 }
-variable "udemy-pubkey-content" {
-    description = "user's SSH public key content"
+variable "udemy-pubkey-path" {
+    description = "user's SSH public key path"
     type = "string"
 }
-variable "udemy-userdata-content" {
-    description = "Content of the customization script"
+variable "udemy-userdata-path" {
+    description = "Path of the customization script"
     type = "string"
 }

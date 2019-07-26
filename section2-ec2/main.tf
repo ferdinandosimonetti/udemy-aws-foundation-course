@@ -18,7 +18,7 @@ module "eu-west-1-sg" {
 module "eu-central-1-kp" {
   source = "./modules/keypairs"
   name   = "${var.udemy-keypair-name}"
-  pubkey   = "${var.udemy-pubkey-content}"
+  pubkey   = "${file(var.udemy-pubkey-path)}"
   providers = {
     aws = "aws.eu-central-1"
   }
@@ -26,7 +26,7 @@ module "eu-central-1-kp" {
 module "eu-west-1-kp" {
   source = "./modules/keypairs"
   name   = "${var.udemy-keypair-name}"
-  pubkey   = "${var.udemy-pubkey-content}"
+  pubkey   = "${file(var.udemy-pubkey-path)}"
   providers = {
     aws = "aws.eu-west-1"
   }
@@ -38,7 +38,7 @@ module "eu-central-1-vm" {
   name = "${var.udemy-instance1-central-name}"
   keypair = "${var.udemy-keypair-name}"
   secgroup = "${var.udemy-sg-name}"
-  userdata = "${var.udemy-userdata-content}"
+  userdata = "${file(var.udemy-userdata-path)}"
   sourceami = "${var.ami-id}"
   providers = {
     aws = "aws.eu-central-1"
@@ -61,7 +61,7 @@ module "eu-central-1-vm2" {
   name = "${var.udemy-instance2-central-name}"
   keypair = "${var.udemy-keypair-name}"
   secgroup = "${var.udemy-sg-name}"
-  userdata = "${var.udemy-userdata-content}"
+  userdata = "${file(var.udemy-userdata-path)}"
   sourceami = "${module.eu-central-1-ami.udemy-ami_id}"
   providers = {
     aws = "aws.eu-central-1"
