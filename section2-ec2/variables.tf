@@ -25,15 +25,24 @@ variable "udemy-sg-name" {
     description = "Name of the generated Security Group"
     type = "string"
 }
+variable "udemy-sg-empty-name" {
+    description = "Name of the empty SG"
+    type = "string"
+}
 variable "udemy-ami-name" {
     description = "Name of the generated AMI" 
     type = "string"
 }
-variable "udemy-pubkey-content" {
-    description = "user's SSH public key content"
+variable "udemy-pubkey-path" {
+    description = "user's SSH public key path"
     type = "string"
 }
-variable "udemy-userdata-content" {
-    description = "Content of the customization script"
+variable "udemy-userdata-path" {
+    description = "Path of the customization script"
     type = "string"
+}
+variable "region" {
+    description = "AWS region"
+    type = "string"
+    default = "eu-central-1"
 }
