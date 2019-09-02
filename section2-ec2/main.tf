@@ -157,6 +157,13 @@ module "eu-central-1-vm" {
   }
 }
 
+# Null resource to wait for successful userdata run on first instance
+resource "null_resource" "udemy-check-first-instance" {
+  triggers = {
+    cluster_instance_ids = "${aws_instance.udemy-instance.id}"
+  }
+  
+}
 # AMI from instance
 module "eu-central-1-ami" {
   source = "./modules/amis"
@@ -164,7 +171,8 @@ module "eu-central-1-ami" {
   sourceinstanceid = "${module.eu-central-1-vm.udemy-instance_id}"
   providers = {
     aws = "aws.eu-central-1"
-  }  
+  }
+  depends_on = []
 }
 
 # second instance in eu-central-1, this time from custom AMI
