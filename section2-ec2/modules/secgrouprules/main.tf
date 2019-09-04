@@ -1,5 +1,5 @@
 # create security group for a web server
-resource "aws_security_group_rule" "udemy-sg-rule" {
+resource "aws_security_group_rule" "fsimonetti-sg-rule" {
   type              = "${var.type}"
   from_port         = "${var.fromport}"
   to_port           = "${var.toport}"

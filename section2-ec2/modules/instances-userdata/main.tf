@@ -1,4 +1,4 @@
-resource "aws_instance" "udemy-instance" {
+resource "aws_instance" "fsimonetti-instance" {
 	ami = "${var.sourceami}"
 	instance_type = "t2.micro"
 	key_name = "${var.keypair}"

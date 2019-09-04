@@ -1,5 +1,5 @@
 # create security group for a web server
-resource "aws_security_group" "udemy-secgroup" {
+resource "aws_security_group" "fsimonetti-secgroup" {
   name        = "${var.name}"
   description = "SSH and HTTP(S)"
 
